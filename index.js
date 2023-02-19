@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const db = require('./db')
-const { getUser } = require('./controllers')
+const { newUser, getAllUsers } = require('./controllers')
 db()
 
 require('dotenv').config()
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 
-app.post('/api/users', urlencodedParser, getUser)
+app.route('/api/users', urlencodedParser).post(newUser).get(getAllUsers)
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)

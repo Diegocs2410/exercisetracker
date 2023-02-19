@@ -3,7 +3,7 @@ const userController = {}
 const User = require('../schemas/user')
 
 
-userController.getUser = async (req, res) => {
+userController.newUser = async (req, res) => {
   console.log('body', req.body.username)
   // create a new user
   const user = new User({
@@ -17,6 +17,15 @@ userController.getUser = async (req, res) => {
     })
   } catch (error) {
     res.status(400).json({ message: error.message })
+  }
+}
+
+userController.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find()
+    res.json(users)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
   }
 }
 
